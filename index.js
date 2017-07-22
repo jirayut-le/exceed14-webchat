@@ -6,16 +6,24 @@ $(document).ready(function() {
     // /data/chat
     var link = "http://158.108.165.223/data/chat/";
 
-    $('#sent').click(function (data) {
+    var enter = function(){
         var message = $('#msg').val();
         $.ajax({
             url: link + "set/" + message
         }).done(function() {
-            console.log("successful");
+            $('#msg').val('');
         }).fail(function () {
             console.error("something wrong");
         });
-    });
+    }
+
+    $('#msg').keyup(function (e) {
+        if(e.originalEvent.code === "Enter"){
+            enter();
+        }
+    })
+
+    $('#sent').click(enter);
     
     var temp = "";
 
